@@ -1,0 +1,227 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /api/v1/admin:
+        get:
+            tags:
+                - AdminService
+            operationId: AdminService_GetAdminBoard
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.Content'
+    /api/v1/all:
+        get:
+            tags:
+                - AdminService
+            operationId: AdminService_GetPublicContent
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.Content'
+    /api/v1/login:
+        post:
+            tags:
+                - AdminService
+            description: 登陆
+            operationId: AdminService_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/admin.v1.LoginReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.User'
+    /api/v1/logout:
+        post:
+            tags:
+                - AdminService
+            description: 登出
+            operationId: AdminService_Logout
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/admin.v1.LogoutReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.LogoutReply'
+    /api/v1/mod:
+        get:
+            tags:
+                - AdminService
+            operationId: AdminService_GetModeratorBoard
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.Content'
+    /api/v1/register:
+        post:
+            tags:
+                - AdminService
+            description: 注册
+            operationId: AdminService_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/admin.v1.RegisterReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.RegisterReply'
+    /api/v1/user:
+        get:
+            tags:
+                - AdminService
+            operationId: AdminService_GetUserBoard
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.Content'
+    /api/v1/users:
+        get:
+            tags:
+                - AdminService
+            description: 用户列表
+            operationId: AdminService_ListUser
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/admin.v1.ListUserReply'
+    /helloworld/{name}:
+        get:
+            tags:
+                - Greeter
+            description: Sends a greeting
+            operationId: Greeter_SayHello
+            parameters:
+                - name: name
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+components:
+    schemas:
+        admin.v1.Content:
+            type: object
+            properties:
+                content:
+                    type: string
+        admin.v1.ListUserReply:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/admin.v1.User'
+                total:
+                    type: integer
+                    format: int32
+        admin.v1.LoginReq:
+            type: object
+            properties:
+                user_name:
+                    type: string
+                password:
+                    type: string
+            description: 请求 - 登录
+        admin.v1.LogoutReply:
+            type: object
+            properties:
+                id:
+                    type: string
+            description: 回应 - 登出
+        admin.v1.LogoutReq:
+            type: object
+            properties:
+                id:
+                    type: string
+            description: 请求 - 登出
+        admin.v1.RegisterReply:
+            type: object
+            properties:
+                message:
+                    type: string
+                success:
+                    type: boolean
+        admin.v1.RegisterReq:
+            type: object
+            properties:
+                username:
+                    type: string
+                password:
+                    type: string
+                email:
+                    type: string
+        admin.v1.User:
+            type: object
+            properties:
+                id:
+                    type: string
+                user_name:
+                    type: string
+                password:
+                    type: string
+                nick_name:
+                    type: string
+                email:
+                    type: string
+                roles:
+                    type: array
+                    items:
+                        type: string
+                token:
+                    type: string
+        helloworld.v1.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+tags:
+    - name: AdminService
+    - name: Greeter
+      description: The greeting service definition.
